@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>MIDO BOOST</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body{margin:0;font-family:Arial,sans-serif;background:#f5f7fb;color:#111827}
+    .wrap{max-width:680px;margin:auto;padding:18px}
+    .hero{background:#111827;color:#fff;border-radius:22px;padding:22px;margin-bottom:16px}
+    .hero h1{margin:0 0 8px}.hero p{margin:0;opacity:.8}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    button{border:0;border-radius:18px;padding:18px;font-size:16px;font-weight:700;background:#fff;box-shadow:0 4px 18px #00000010;cursor:pointer}
+    .wide{grid-column:1/-1}
+    .user{font-size:14px;opacity:.8;margin-top:12px}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <h1>🚀 MIDO BOOST</h1>
+    <p>كل خدمات البوت في واجهة واحدة</p>
+    <div class="user" id="user">جاري تحميل الحساب...</div>
+  </div>
+
+  <div class="grid">
+    <button onclick="send('ai')">🤖 الذكاء الاصطناعي</button>
+    <button onclick="send('media')">📥 خدمات الوسائط</button>
+    <button onclick="send('vpn')">🌐 VPN</button>
+    <button onclick="send('news')">📰 الأخبار</button>
+    <button onclick="send('profile')">🖼️ تعديل الصورة</button>
+    <button onclick="send('orders')">📦 طلباتي</button>
+    <button class="wide" onclick="send('home')">🏠 العودة للبوت</button>
+  </div>
+</div>
+
+<script>
+const tg = window.Telegram.WebApp;
+tg.ready();
+tg.expand();
+
+const u = tg.initDataUnsafe?.user;
+if (u) {
+  document.getElementById('user').textContent =
+    `👤 ${u.first_name || ''} ${u.username ? '@'+u.username : ''}`;
+} else {
+  document.getElementById('user').textContent = 'افتح الواجهة من داخل Telegram';
+}
+
+function send(section){
+  tg.sendData(JSON.stringify({action:section}));
+}
+</script>
+</body>
+</html>
